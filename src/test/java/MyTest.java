@@ -3,12 +3,8 @@ import org.junit.Test;
 
 public class MyTest {
     @Test
-    public void test_method_1() {
+    public void testMethod1() {
         Demo d = new Demo();
         d.DoSomething(true);
-    }
-
-    @Test
-    public void test_method_2() {
     }
 }
