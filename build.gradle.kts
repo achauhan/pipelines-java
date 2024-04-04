@@ -16,13 +16,14 @@ jacoco {
 sonarqube {
     properties {
         // SonarQube server URL
-        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.host.url", "http://192.168.1.15:9000")
         // SonarQube project key
         property("sonar.projectKey", "sonartest")
         // SonarQube project name
         property("sonar.projectName", "sonartest")
         // Other SonarQube properties as needed
         property("sonar.token", "squ_9c3d5a894320f76d82a731d2998f9145cd5bb77d")
+        property("sonar.plugins.downloadOnlyRequired", "true")
     }
 }
 
