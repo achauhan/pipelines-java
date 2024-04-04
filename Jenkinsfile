@@ -19,8 +19,27 @@ pipeline {
             }
         }
 
-        // Add more stages as needed
-        // For example: Test, Deploy
+        stage('Unit Test') {
+            steps {
+                // Run unit tests
+                sh './gradlew test'
+            }
+        }
+
+        stage('Publish Code Coverage') {
+            steps {
+                // Generate code coverage report
+                sh './gradlew jacocoTestReport'
+
+                // Archive code coverage report
+                publishHTML(target: [allowMissing: false,
+                                     alwaysLinkToLastBuild: false,
+                                     keepAll: true,
+                                     reportDir: 'build/reports/tests/test',
+                                     reportFiles: 'index.html',
+                                     reportName: 'Code Coverage Report'])
+            }
+        }        // For example: Test, Deploy
     }
 
     // Add post-build actions if needed
