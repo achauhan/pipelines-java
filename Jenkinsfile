@@ -54,10 +54,7 @@ pipeline {
                             -Dsonar.plugins.downloadOnlyRequired=true \
                             -Dsonar.java.binaries=build/classes"
 
-                        // def qg = waitForQualityGate()
-                        // if (qg.status != 'OK') {
-                        //     error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                        // }
+                        waitForQualityGate true
                     }
                 }
             }
