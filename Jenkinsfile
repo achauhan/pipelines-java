@@ -8,7 +8,7 @@ pipeline {
                 deleteDir()
 
                 // Checkout the GitHub repository
-                git branch: 'main', credentialsId: '134884d4-f75f-487e-bfdb-13c96df52434', url: 'https://github.com/achauhan/pipelines-java.git'
+                checkout scm
             }
         }
 
@@ -39,7 +39,13 @@ pipeline {
                                      reportFiles: 'index.html',
                                      reportName: 'Code Coverage Report'])
             }
-        }        // For example: Test, Deploy
+        }        
+        
+        stage('SonarQube Analysis') {
+                withSonarQubeEnv() {
+                sh "./gradlew sonar"
+            }
+        }
     }
 
     // Add post-build actions if needed

@@ -5,12 +5,25 @@
 plugins {
     `java-library`
     `maven-publish`
-    java
     id("jacoco")
+    id "org.sonarqube" version "4.4.1.3373"
 }
 
 jacoco {
     toolVersion = "0.8.7"
+}
+
+sonarqube {
+    properties {
+        // SonarQube server URL
+        property("sonar.host.url", "http://localhost:9000")
+        // SonarQube project key
+        property("sonar.projectKey", "sonartest")
+        // SonarQube project name
+        property("sonar.projectName", "sonartest")
+        // Other SonarQube properties as needed
+        // For example: property("sonar.sources", "src/main")
+    }
 }
 
 repositories {
