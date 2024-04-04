@@ -47,6 +47,7 @@ pipeline {
                 sh "./gradlew sonar"
             }
         }
+        }
 
         stage('Publish SonarQube Report') {
             steps {
