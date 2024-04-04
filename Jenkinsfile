@@ -43,27 +43,29 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                // withSonarQubeEnv() {
-                sh "./gradlew sonar"
-            // }
-            }
-        }
-
-        stage('Publish SonarQube Report') {
-            steps {
-                // Publish SonarQube report as a link in Jenkins
-                publishHTML(target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                    reportDir: 'build/sonar',
-                    reportFiles: 'report-task.txt',
-                    reportName: 'SonarQube Report'
-                ])
+                // Run SonarQube analysis using the SonarQube Scanner for Jenkins plugin
+                script {
+                    def scannerHome = tool 'SonarQubeScanner'
+                    withSonarQubeEnv('SonarQubeServer') {
+                        withCredentials([string(credentialsId: 'sonar-token-id', variable: 'SONAR_TOKEN')]) {
+                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN"
+                        }
+                    }
+                }
             }
         }
     }
 
-    // Add post-build actions if needed
-    // For example: sending notifications, archiving artifacts
+    post {
+        always {
+            // Check the quality gate status
+            script {
+                def qg = waitForQualityGate()
+                if (qg.status != 'OK') {
+                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                }
+            }
+        }    
+    }
+
 }
