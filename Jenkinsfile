@@ -48,25 +48,13 @@ pipeline {
                     def scannerHome = tool 'SonarQubeScanner'
                     withSonarQubeEnv('SonarQubeScanner') {
                         sh "${scannerHome}/bin/sonar-scanner"
-                        // withCredentials([string(credentialsId: 'sonar-token-id', variable: 'SONAR_TOKEN')]) {
-                            // sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN"
-                        // }
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
                     }
                 }
             }
         }
     }
-
-    post {
-        always {
-            // Check the quality gate status
-            script {
-                def qg = waitForQualityGate()
-                if (qg.status != 'OK') {
-                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                }
-            }
-        }    
-    }
-
 }
