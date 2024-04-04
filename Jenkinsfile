@@ -46,7 +46,7 @@ pipeline {
                 // Run SonarQube analysis using the SonarQube Scanner for Jenkins plugin
                 script {
                     def scannerHome = tool 'SonarQubeScanner'
-                    withSonarQubeEnv('SonarQubeServer') {
+                    withSonarQubeEnv('SonarQubeScanner') {
                         withCredentials([string(credentialsId: 'sonar-token-id', variable: 'SONAR_TOKEN')]) {
                             sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN"
                         }
