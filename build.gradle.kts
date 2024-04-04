@@ -5,6 +5,12 @@
 plugins {
     `java-library`
     `maven-publish`
+    java
+    id("jacoco")
+}
+
+jacoco {
+    toolVersion = "0.8.7"
 }
 
 repositories {
