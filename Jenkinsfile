@@ -42,8 +42,23 @@ pipeline {
         }        
         
         stage('SonarQube Analysis') {
+            steps {
                 withSonarQubeEnv() {
                 sh "./gradlew sonar"
+            }
+        }
+
+        stage('Publish SonarQube Report') {
+            steps {
+                // Publish SonarQube report as a link in Jenkins
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: 'build/sonar',
+                    reportFiles: 'report-task.txt',
+                    reportName: 'SonarQube Report'
+                ])
             }
         }
     }

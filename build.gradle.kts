@@ -6,7 +6,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("jacoco")
-    id "org.sonarqube" version "4.4.1.3373"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 jacoco {
@@ -22,7 +22,7 @@ sonarqube {
         // SonarQube project name
         property("sonar.projectName", "sonartest")
         // Other SonarQube properties as needed
-        // For example: property("sonar.sources", "src/main")
+        property("sonar.token", "squ_9c3d5a894320f76d82a731d2998f9145cd5bb77d")
     }
 }
 
