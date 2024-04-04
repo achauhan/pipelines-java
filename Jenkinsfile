@@ -47,7 +47,13 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarQubeScanner'
                     withSonarQubeEnv('SonarQubeScanner') {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=sonartest \
+                            -Dsonar.projectName=sonartest \
+                            -Dsonar.sources=src \
+                            -Dsonar.plugins.downloadOnlyRequired=true \
+                            -Dsonar.java.binaries=build/classes"
+
                         def qg = waitForQualityGate()
                         if (qg.status != 'OK') {
                             error "Pipeline aborted due to quality gate failure: ${qg.status}"
