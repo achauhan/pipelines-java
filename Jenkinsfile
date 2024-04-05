@@ -1,3 +1,4 @@
+@Library('sharedlib') _
 pipeline {
     agent any
 
@@ -6,7 +7,7 @@ pipeline {
             steps {
                 // Clean workspace before checkout
                 deleteDir()
-
+                HelloWorld()
                 // Checkout the GitHub repository
                 checkout scm
             }
