@@ -1,3 +1,5 @@
+package com.microsoft.demo.test;
+
 import com.microsoft.demo.Demo;
 import org.junit.Test;
 
