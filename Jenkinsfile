@@ -9,7 +9,7 @@ pipeline {
                 deleteDir()
                 checkout scm
                 script {
-                    // HelloWorld()
+                    HelloWorld()
                     log.info "info"
                     log.warning "warning"
                     // Checkout the GitHub repository
