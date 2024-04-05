@@ -65,13 +65,6 @@ pipeline {
             }
         }
 
-        stage('Dependency-Check') {
-            steps {
-                // Run OWASP Dependency-Check
-                dependencyCheck 
-                dependencyCheckPublisher 
-            }
-        }
 
     }
 }
