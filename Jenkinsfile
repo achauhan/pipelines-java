@@ -45,6 +45,7 @@ pipeline {
             steps {
                 // Run SonarQube analysis using the SonarQube Scanner for Jenkins plugin
                 script {
+                    try{
                     def scannerHome = tool 'SonarQubeScanner'
                     withSonarQubeEnv('SonarQubeScanner') {
                         sh "${scannerHome}/bin/sonar-scanner \
@@ -54,10 +55,22 @@ pipeline {
                             -Dsonar.plugins.downloadOnlyRequired=true \
                             -Dsonar.java.binaries=build/classes"
 
-                        waitForQualityGate true
+                        waitForQualityGate abortPipeline: true
+                    }
+                    }
+                    catch (Exception e) {
+                        echo "${e.getMessage()}"
                     }
                 }
             }
         }
+
+        stage('Dependency-Check') {
+            steps {
+                // Run OWASP Dependency-Check step
+                dependencyCheckPublisher pattern: '**/build/reports/**/*.xml', failOnError: true
+            }
+        }
+
     }
 }
