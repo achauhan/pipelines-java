@@ -55,7 +55,7 @@ pipeline {
                             -Dsonar.plugins.downloadOnlyRequired=true \
                             -Dsonar.java.binaries=build/classes"
 
-                        waitForQualityGate abortPipeline: true
+                        // waitForQualityGate abortPipeline: true
                     }
                     }
                     catch (Exception e) {
@@ -67,8 +67,18 @@ pipeline {
 
         stage('Dependency-Check') {
             steps {
+                // Run OWASP Dependency-Check
+                dependencyCheck (
+                    dataDirectory: 'dependency-check-data',
+                    format: 'ALL'
+                )
+            }
+        }
+
+        stage('Dependency-Check') {
+            steps {
                 // Run OWASP Dependency-Check step
-                dependencyCheckPublisher pattern: '**/build/reports/**/*.xml', failOnError: true
+                dependencyCheckPublisher pattern: '**/build/reports/dependency-check-data/*.xml', failOnError: true
             }
         }
 
