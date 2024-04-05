@@ -10,7 +10,7 @@ pipeline {
                 checkout scm
                 script {
                     // HelloWorld()
-                    log.ingo "info"
+                    log.info "info"
                     log.warning "warning"
                     // Checkout the GitHub repository
                 }
