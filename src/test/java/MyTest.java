@@ -1,4 +1,4 @@
-package com.microsoft.demo.test;
+package src.test.java;
 
 import com.microsoft.demo.Demo;
 import org.junit.Test;
