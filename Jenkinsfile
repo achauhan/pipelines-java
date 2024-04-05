@@ -69,8 +69,7 @@ pipeline {
             steps {
                 // Run OWASP Dependency-Check
                 dependencyCheck (
-                    dataDirectory: 'dependency-check-data',
-                    format: 'ALL'
+                    stopBuild: true
                 )
             }
         }
@@ -78,7 +77,7 @@ pipeline {
         stage('Dependency-Check') {
             steps {
                 // Run OWASP Dependency-Check step
-                dependencyCheckPublisher pattern: '**/build/reports/dependency-check-data/*.xml', failOnError: true
+                dependencyCheckPublisher 
             }
         }
 
