@@ -7,7 +7,9 @@ pipeline {
             steps {
                 // Clean workspace before checkout
                 deleteDir()
-                HelloWorld()
+                // HelloWorld()
+                log.ingo "info"
+                log.warning "warning"
                 // Checkout the GitHub repository
                 checkout scm
             }
