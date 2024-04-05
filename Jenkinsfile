@@ -68,15 +68,7 @@ pipeline {
         stage('Dependency-Check') {
             steps {
                 // Run OWASP Dependency-Check
-                dependencyCheck (
-                    stopBuild: true
-                )
-            }
-        }
-
-        stage('Dependency-Check') {
-            steps {
-                // Run OWASP Dependency-Check step
+                dependencyCheck 
                 dependencyCheckPublisher 
             }
         }
